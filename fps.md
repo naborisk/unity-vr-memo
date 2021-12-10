@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 ```
 以上のように`public GameObject projectile;`を作って、ProjectビューからInspectorビューにあるGameControllerのスクリプトのProjectile欄にBulletを引っ張って置くとコードでこのprefabを使えます。
 
-<img src="img/add-projectile.png" width="400" />
+<img src="img/add-projectile.png" width="700" />
 
 弾を撃つため、コードの`Update()`内でキーの判定を書いて、以下のように実装する。
 ```cs
