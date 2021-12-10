@@ -3,11 +3,11 @@
 VRの基本の操作が実装できたら弾の実装をしましょう。  
 まず、弾のprefabが必要です。prefabとは単にいうとテンプレートみたいなものです。  
 弾のprefabは簡単なキューブかスフィアでもいいので、今回はスフィアで作ります。  
-<img src="img/sphere-create.png" width="200" />
+<img src="img/sphere-create.png" width="300" />
 
 これでスフィアが作成されたが、まだprefabではないです。  
 prefabにする方法はHierarchyビューからスフィアを引っ張ってProjectビューに置くと完成です。  
-<img src="img/sphere-prefab.png" width="200" />
+<img src="img/sphere-prefab.png" width="400" />
 
 prefabを作成できたらHierarchyビューからスフィアを消してもいいです。
 
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 ```
 以上のように`public GameObject projectile;`を作って、ProjectビューからInspectorビューにあるGameControllerのスクリプトのProjectile欄にBulletを引っ張って置くとコードでこのprefabを使えます。
 
-<img src="img/add-projectile" width="200" />
+<img src="img/add-projectile.png" width="400" />
 
 弾を撃つため、コードの`Update()`内でキーの判定を書いて、以下のように実装する。
 ```cs
