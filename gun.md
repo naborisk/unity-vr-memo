@@ -11,3 +11,26 @@ CustomHandLeftとCustomHandRightをOVRPlayerControllerのLeftControllerAnchorと
 
 以上の手の実装があったら、掴めるオブジェクトを作りましょう！  
 掴みたいオブジェクトに必要なのはOVRGrabbableスクリプトとRigidbodyコンポネントなので、この２つを掴みたいオブジェクトに追加したら掴めることになります。
+
+## 銃を持ちながら弾を撃つ
+弾を撃つためにまずは弾のprefabを用意してください。簡単な作り方はHierarchyビューでスフィアを作成してProjectビューにドラッグアンドドロップすればいいです。
+
+弾prefabができたら、銃のオブジェクトに新しいスクリプトを作りましょう。今回は`Gun.cs`と名前を付けます。
+スクリプトの中に弾用の変数を作って、パブリック変数にする。
+```cs
+public GameObject projectile;
+```
+それからUpdate()メソッド内に弾を撃つコードを書きましょう
+```cs
+void Update() {
+    if (transform.GetComponent<OVRGrabbable>().isGrabbed && OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger)) {
+        GameObject launchPos = gameObject.transform.GetChild(0).gameObject;
+
+        GameObject bullet = Instantiate(projectile, launchPos.transform.position, launchPos.transform.rotation) as GameObject;
+        bullet.GetComponent<Rigidbody>().AddForce(launchPos.transform.forward * 500);
+    }
+}
+```
+
+最後に弾のprefabをスクリプトに設定すれば完了であるはず。
+<img src="img/bullet-set.png" width="500" />
