@@ -41,3 +41,36 @@ void Update() {
 ```
 以上のコードでテストのためまだVRのコントローラー使用しないが、キーボードのSpaceキーを使います。  
 以上のように実装すればゲーム内でSpaceキーを押すとGameControllerの位置から弾が出るはずです。
+
+## 敵の動きの再生成
+敵が動かないと簡単すぎるでしょう。なので簡単な敵の動きを作りましょう。  
+まず、敵のスクリプトのUpdate()関数の中に以下を書きます。
+```cs
+void Update() {
+    transform.Translate(Vector3.back * Time.deltaTime);
+}
+```
+敵はプレイヤーと同じ方向に向いているのでVector3.backを使います。しかし敵は逆向きになったらVector3.forwardを使います。
+
+次は敵を倒したときにリスポーンするため、オブジェクトを破壊する直前新しいオブジェクトを再生するといいです。
+```cs
+private void OnCollisionEnter(Collision other) {
+    if(other.gameObject.tag == "Bullet") {
+        hp -= 25;
+        hpText.text = "" + hp;
+    }
+    if(hp == 0) {
+        float spawnX = Random.Range(-4, 4);
+        GameObject enemy = (GameObject) Instantiate (gameObject, new Vector3(spawnX,0,7), Quaternion.identity);
+        Destroy(gameObject);
+    }
+}
+```
+
+`Destroy(gameObject)`の前に
+
+```cs
+float spawnX = Random.Range(-4, 4);
+GameObject enemy = (GameObject) Instantiate (gameObject, new Vector3(spawnX,0,7), Quaternion.identity);
+```
+を書いたら敵を倒したとき、X軸でリスポーンすることになります。
